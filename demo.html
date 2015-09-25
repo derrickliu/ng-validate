@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="ngValidateApp">
+<head>
+	<meta charset="UTF-8">
+	<title>ng.validate.js demo</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<link rel="stylesheet" href="ng.validate.css">
+	<style>
+	body{padding: 20px;}
+	</style>
+</head>
+<body ng-controller="ngValidateCtrl">
+	<form ng-validate="regexp">
+		<div class="form-group">
+			<label class="control-label">身份证号</label>
+			<input type="text" class="form-control" placeholder="请输入身份证号" ng-validate-rules="regexp.idcard" ng-model="idcard">
+		</div>
+		<div class="form-group">
+			<label class="control-label">QQ号</label>
+			<input type="text" class="form-control" placeholder="请输入qq号" ng-validate-rules="regexp.qq" ng-model="qq">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox"> Check me out
+			</label>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+
+	<script src="ng.validate.js"></script>
+	<script>
+	angular.module('ngValidateApp',['ngValidate'])
+	.controller('ngValidateCtrl',function($scope){
+		var that = $scope;
+		that.regexp = {
+			idcard: {
+				blank: [/[^\s]+/,'身份证号不能为空'],
+				format: [/^\d{18}$/,'身份证号格式错误']
+			},
+			qq: {
+				blank: [/[^\s]+/,'qq号不能为空'],
+				format: [/^\d{5,10}$/,'qq号为5-10位数字']
+			}
+		};
+	});
+	</script>
+</body>
+</html>
