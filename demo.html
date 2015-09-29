@@ -12,29 +12,31 @@
 	body{padding: 20px;}
 	</style>
 </head>
-<body ng-controller="ngValidateCtrl">
-	<form ng-validate="regexp">
-		<div class="form-group">
+<body ng-controller="ngValidateCtrlDemo">
+	<form ng-validate="regexp" ng-submit="submit()" name="form">
+		<div class="form-group" ng-class="{'has-error': form.idcard.$error.integer}">
 			<label class="control-label">身份证号</label>
-			<input type="text" class="form-control" placeholder="请输入身份证号" ng-validate-rules="regexp.idcard" ng-model="idcard">
+			<input type="text" class="form-control" name="idcard" placeholder="请输入身份证号" ng-model="idcard">
+			<span ng-show="form.idcard.$error.integer">This is not valid integer!</span>
 		</div>
 		<div class="form-group">
 			<label class="control-label">QQ号</label>
-			<input type="text" class="form-control" placeholder="请输入qq号" ng-validate-rules="regexp.qq" ng-model="qq">
+			<input type="text" class="form-control" name="qq" placeholder="请输入qq号" ng-validate-rules="regexp.qq" ng-model="qq">
 		</div>
 		<div class="checkbox">
 			<label>
-				<input type="checkbox"> Check me out
+				<input type="checkbox" name="check" ng-model="check"> Check me out
 			</label>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Submit</button>
 	</form>
 
 	<script src="ng.validate.js"></script>
 	<script>
 	angular.module('ngValidateApp',['ngValidate'])
-	.controller('ngValidateCtrl',function($scope){
+	.controller('ngValidateCtrlDemo',function($scope){
 		var that = $scope;
+		// that.check = false;
 		that.regexp = {
 			idcard: {
 				blank: [/[^\s]+/,'身份证号不能为空'],
@@ -43,8 +45,17 @@
 			qq: {
 				blank: [/[^\s]+/,'qq号不能为空'],
 				format: [/^\d{5,10}$/,'qq号为5-10位数字']
+			},
+			check: {
+				blank: [function(target){
+					return target.is(':checked');
+				},'必选项']
 			}
 		};
+
+		that.submit = function(){
+			alert(1)
+		}
 	});
 	</script>
 </body>
