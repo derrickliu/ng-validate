@@ -1,5 +1,6 @@
 {
   "name": "ngValidate",
+  "main": ["ng.validate.js", "ng.validate.css"],
   "version": "1.0.0",
   "authors": [
     "derrickliu <690004928@qq.com>"
