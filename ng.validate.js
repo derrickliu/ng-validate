@@ -32,6 +32,7 @@ angular.module('ngValidate',[])
             rules: '=ngValidate'
         },
         link: function(scope,elem,attrs){
+            var elem = $(elem[0]);
             var rules = scope.rules;
 
             elem.on('focusout','input',function(e){
