@@ -87,7 +87,7 @@ angular.module('ngValidate',[])
         }
     };
     return nv;
-})
+});
 // .directive('ngValidateRules',function(){
 //     var nvr = {
 //         restrict: 'A',
