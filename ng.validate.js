@@ -29,7 +29,8 @@ angular.module('ngValidate',[])
     var nv = {
         restrict: 'A',
         scope: {
-            rules: '=ngValidate'
+            rules: '=ngValidate',
+            inst: '=ngValidateInstance'
         },
         link: function(scope,elem,attrs){
             var elem = $(elem[0]);
@@ -70,20 +71,32 @@ angular.module('ngValidate',[])
                 t.tooltip('destroy');
             }
 
-            elem.on('submit',function(e){
-                var bool = false;
-                $(this).find('input').each(function(i,n){
+            if(elem.is('form')){
+            	elem.on('submit',function(e){
+	                var bool = validateAll();
+	                //取消后续的submit绑定
+	                if(!bool && e){
+	                    e.stopImmediatePropagation();
+	                }
+	                return bool;
+	            });
+            }
+
+            function validateAll(){
+            	var bool = false;
+                elem.find('input').each(function(i,n){
                     bool = validate($(this));
                     if(!bool) {
                         return bool;
                     }
                 });
-                //取消后续的submit绑定
-                if(!bool && e){
-                    e.stopImmediatePropagation();
-                }
+
                 return bool;
-            });
+            }
+
+            scope.inst = {
+            	validateAll: validateAll
+            };
         }
     };
     return nv;
