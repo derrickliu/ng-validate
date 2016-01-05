@@ -84,7 +84,7 @@ angular.module('ngValidate',[])
 
             function validateAll(){
             	var bool = false;
-                elem.find('input').each(function(i,n){
+                elem.find(':input').each(function(i,n){
                     bool = validate($(this));
                     if(!bool) {
                         return bool;
