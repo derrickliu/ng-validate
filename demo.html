@@ -13,7 +13,7 @@
 	</style>
 </head>
 <body ng-controller="ngValidateCtrlDemo">
-	<form ng-validate="regexp" ng-submit="submit()" ng-validate-instance="validateInstance">
+	<form ng-validate="regexp" ng-submit="submit()" ng-validate-instance="validateInstance" ng-validate-auto="false">
 		<div class="form-group">
 			<label class="control-label">身份证号</label>
 			<input type="text" class="form-control" name="idcard" placeholder="请输入身份证号" ng-model="idcard">

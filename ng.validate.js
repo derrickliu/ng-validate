@@ -30,19 +30,24 @@ angular.module('ngValidate',[])
         restrict: 'A',
         scope: {
             rules: '=ngValidate',
-            inst: '=ngValidateInstance'
+            inst: '=ngValidateInstance',
+            auto: '=ngValidateAuto'
         },
         link: function(scope,elem,attrs){
             var elem = $(elem[0]);
             var rules = scope.rules;
 
-            elem.on('focusout','input',function(e){
-                validate($(this));
-            });
+            var auto = scope.atuo || true;
 
-            elem.on('focusin','input',function(e){
-                reset($(this));
-            });
+            if(scope.auto == 'true' || scope.auto == true){
+                elem.on('focusout','input',function(e){
+                    validate($(this));
+                });
+
+                elem.on('focusin','input',function(e){
+                    reset($(this));
+                });
+            }
 
             function validate(t){
                 var p = t.parent(),
