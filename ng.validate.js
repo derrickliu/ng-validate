@@ -65,6 +65,8 @@ angular.module('ngValidate',[])
                         });
                         t.tooltip('show');
                         return false;
+                    }else{
+                    	reset(t);
                     }
                 }
                 return true;
