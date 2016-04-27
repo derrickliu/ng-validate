@@ -30,7 +30,7 @@ angular.module('ngValidate',[])
         restrict: 'A',
         scope: {
             rules: '=ngValidate',
-            inst: '=ngValidateInstance',
+            inst: '=?ngValidateInstance',
             auto: '=ngValidateAuto'
         },
         link: function(scope,elem,attrs){
