@@ -40,11 +40,11 @@ angular.module('ngValidate',[])
             var auto = scope.atuo || true;
 
             if(scope.auto == 'true' || scope.auto == true){
-                elem.on('focusout','input',function(e){
+                elem.on('focusout',':input',function(e){
                     validate($(this));
                 });
 
-                elem.on('focusin','input',function(e){
+                elem.on('focusin',':input',function(e){
                     reset($(this));
                 });
             }
