@@ -53,23 +53,34 @@ angular.module('ngValidate',[])
                 var p = t.parent(),
                     name = t.attr('name'),
                     value = t.val(),
-                    r = rules[name];
+                    r = rules[name],
+
+                    // 是否通过验证
+                    isPass = true,
+                    // 没通过验证的项
+                    key;
                 for(var k in r){
-                    if(r[k][0] instanceof RegExp && !r[k][0].test(value) ||
-                        $.isFunction(r[k][0]) && !r[k][0](t)){
-                        p.addClass('has-error');
-                        t.tooltip({
-                            title: r[k][1],
-                            placement: 'auto',
-                            trigger: 'manual'
-                        });
-                        t.tooltip('show');
-                        return false;
-                    }else{
-                    	reset(t);
+                    if( ( r[k][0] instanceof RegExp && !r[k][0].test(value) ) || ( $.isFunction(r[k][0]) && !r[k][0](t) ) ){
+                        
+                        isPass = false;
+                        key = k;
+                        console.log(k);
+                        break;
                     }
                 }
-                return true;
+
+                if(isPass){
+                    reset(t);
+                }else{
+                    p.addClass('has-error');
+                    t.tooltip({
+                        title: r[key][1],
+                        placement: 'auto',
+                        trigger: 'manual'
+                    });
+                    t.tooltip('show');
+                }
+                return isPass;
             }
 
             function reset(t){

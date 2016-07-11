@@ -35,6 +35,10 @@
 				<input type="checkbox" name="check" ng-model="check"> Check me out
 			</label>
 		</div>
+		<div class="form-group">
+			<label class="control-label">key</label>
+			<input type="text" class="form-control" name="key" placeholder="key" ng-model="key">
+		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 
@@ -47,7 +51,8 @@
 		that.regexp = {
 			idcard: {
 				blank: [/[^\s]+/,'身份证号不能为空'],
-				format: [/^\d{18}$/,'身份证号格式错误']
+				format: [/^\d$/,'身份证号格式错误'],
+				len: [/^\d{18}$/,'身份证号长度错误']
 			},
 			qq: {
 				blank: [/[^\s]+/,'qq号不能为空'],
@@ -62,7 +67,16 @@
 				blank: [function(target){
 					return target.is(':checked');
 				},'必选项']
-			}
+			},
+			key: {
+                blank: [/[^\s]+/,'请填写配置实例名称'],
+                word: [/^\w+$/,'只能包含英文字母、数字、减号和下划线'],
+                startWithWord: [/^[a-zA-Z]/,'只能以英文字母开头'],
+                endWithWordOrNumber: [/[a-zA-Z0-9]$/,'只能以英文字母或数字结束'],
+                format: [function (target) {
+                    return target.val().length < 45;
+                }, '请勿超过45个字符']
+            }
 		};
 
 		that.submit = function(){
