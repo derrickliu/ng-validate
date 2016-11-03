@@ -79,6 +79,8 @@ angular.module('ngValidate',[])
                         trigger: 'manual'
                     });
                     t.tooltip('show');
+                    // t.parent()[0].scrollIntoView();
+                    $(window).scrollTop(t.offset().top - 40)
                 }
                 return isPass;
             }
